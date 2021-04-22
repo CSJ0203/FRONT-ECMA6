@@ -1,0 +1,195 @@
+
+1. position (요소의 위치 지정 기준)
+ - static : 기준 없음
+ - relative : 요소 자신을 기준
+ - absolute : 위치 상 부모 요소를 기준
+ - fixed : 뷰포트(브라우저) 기준
+ - sticky : 스크롤 영역 기준
+
+.container .item{
+  border : 4px dashed red;
+  background-color:orange;
+}
+ -> container 클래스에 item 클래스를 찾아 스타일을 먹여라
+
+.container .item:nth-child(2){
+  width:140px;
+  height:70px;
+  position:relative; 
+}
+ -> container 클래스에 item 클래스를 찾아 2번째 요소의 애에 스타일을 먹여라
+
+
+2. 위치상 부모가 아니라 구조상 부모를 찾기때문에 (position 속성)
+ - 타고 타고 올라가서 부모가 없으면 viewport 까지 나감
+ - 부모 지정해줄땐 position:relatvie 속성 먹이는게 가장 일반적
+ - position:fitxed는 뷰포트 기준, fixed 속성은 사이트에서 우측에 쭉 따라다니는,, 그런거 할때 좋음
+
+
+3. 요소 쌓임 순서(Stack order)
+ - 어떤 요소가 사용자와 더 가깝게 있는지(위에 쌓이는지) 결정
+  (1) 요소에 position 속성의 값이 이쓴 경우 위에 쌓임 (static 제외, 스테틱은 기본이며 position 속성을 안쓴것과 동일하다)
+  (2) 1번과 조건이 같은 경우 z-index 속성의 숫자 값이 높을수록 위에 쌓임
+  (3) 1번과 2번 조건까지 같은 경우, html의 다음 구조일수록 위에 쌓임
+- position:absolute는 block요소를 가지게 된다(가로, 세로 값 가지기 가능), 또한 위치상 부모 요소의 값을 기준으로 배치한다
+- display 속성이 block 값으로 바뀌지 않는 position 속성의 값은? relatvie
+
+4. 플렉스(정렬)
+ - flex 속성을 부여하면 flex container 하나, 그 안에 요소들은 flex items가 된다
+ - flex Container를 만드려면 display:flex라는 속성이 들어있어야 한다 (블록요소와 같이)
+ - 부모요소인 div.container를 Flex Container라 지칭함
+ - 자식요소인 div.item들을 Flex Item이라 지칭함
+ - display:flex가 지정된 요소 (flex Container)의 자식요소를 flex Item이라 부른다 
+ - flex Container의 주축을 지정하는 속성 : flex-direction
+ - flex warp의 기본값 : nowrap 줄바꿈 하게하려면 wrap
+ - 교차축(Cross-axis)의 한줄 정렬을 위한 속성? align-items
+
+5. ECMA 6
+ - let user = {
+    name : "suzy",
+    age : 27,
+    isValid : true 
+  };
+
+ console.log(user.name); //suzy
+ console.log(user.age); //27
+ console.log(isValid); //true
+
+ - let myName = "수지";
+ - let hello = `Hello ${myName}`; // Hello 수지
+
+ - let == 값의 재할당 가능
+ ex) let a = 12;
+     console.log(a); // 12
+ 
+     a = 999;
+     console.log(a); // 999
+
+ - const == 값 재할당 불가 , 대부분 const 사용
+ ex) const a = 12;
+     console.log(a); // 12
+
+     a = 999;
+     console.log(a); // TypeError: Assignment to constant variable. 
+
+ - function returnFunc(){
+      return 1234;
+   } 
+
+   let a = returnFunc();    // 1234 리턴받음
+   console.log(a);  	// 1234
+
+ - 기명함수
+   function hello(){
+      console.log("Hello~");
+   }
+
+ - 익명함수 (함수의 표현)
+   let world = function(){
+      console.log("World~");
+  }
+
+ - 객체데이터 내부에 일반적인 데이터가 아닌 함수가 있으면 메소드라 부른다
+
+ - const boxEl - document.querySelector('.box');  // HTML 요소(Element) 1개 검색, 찾기
+ - boxEl.addEventListener(); // HTML 요소에 적용할 수 있는 메소드
+ - boxEl.addEventListner(1,2); // 인수를 추가
+ - boxEl.addEventListenr('click', 2); // 1 - 이벤트(Event, 상황)
+ - boxEl.addEventListner('click', function(){   // boxEl을 클릭하면 이벤트 발생시킴, 이벤트 핸들러
+	console.log('click');
+   })
+
+ - boxEl.classList.add('active'); // boxEl에 active 클래스를 추가하겠다
+
+boxEl.classList.add('active'); //boxEl에 active 클래스를 추가하겠다
+let isContains = boxEl.classList.contains('active'); //boxEl에 active 클래스가 있는지 확인
+console.log(isContains);
+
+
+boxEl.classList.remove('active'); // boxEl에 active 클래스를 지우겠다
+isContains = boxEl.classList.contains('active'); // boxEl에 active 클래스가 있는지 확인
+console.log(isContains);
+
+
+const boxEls = document.querySelectorAll('.box') // box 클래스를 가진 요소를 다 찾겠다 == 요소 여러개
+boxEls.forEach(function(boxEl, index){		// 위에서 찾은 여러개 요소를 each를 돌림, index 붙여서
+    boxEl.classList.add(`order-${index+1}`)	// 저장된 데이터 꺼내 쓸땐 꼭 백틱 기호를 쓴다
+    console.log(index, boxEl);
+})
+
+const boxEl = document.querySelector('.box'); 의 요소에 click 이벤트를 추가해 Hello 출력
+
+boxEl.addEventListner('click', function(){
+   console.log("Hello~~~");
+})
+
+const divEls = document.querySelectorAll('div'); // div 요소 전체를 다 찾아서
+divEls.forEach(function(divEl){
+  divEl.classList.add('hello');
+})
+
+
+if(boxEl.classList.contains('active')){		// 만약 boxEl 속성에 active 클래스가 추가돼있다면 콘솔 찍어줌
+    console.log('포함됨!!');
+}
+
+
+var name = "채수지";
+var age = "27";
+console.log(name);
+
+ECMA6 ``
+
+const name ="채수지";
+const age = "27";
+
+console.log("ㅇㅅㅇ~~~" `${name}`);
+
+- BEM(Block Element Modifier) 작명법
+ : 요소__일부분 
+ : 요소--상태
+
+- 애니메이션 회전
+
+body{
+  padding: 50px;
+}
+
+.container{
+  width: 100px;
+  height: 100px;
+  background-color:orange;
+  perspective: 300px;
+}
+
+.container .item{
+  width: 100px;
+  height: 100px;
+  border: 4px solid red;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 50px;
+  backface-visibility:hidden;
+  transition: 1s
+}
+
+.container .item.front{
+  position:absolute;
+  transform:rotateY(0deg);
+}
+
+.container:hover .item.front{
+  transform: rotateY(180deg);
+}
+
+.container .item.back{
+  transform: rotateY(-180deg);
+}
+
+.container:hover .item.back{
+  transform: rotateY(0deg);
+
+<div class="container">
+  <div class="item front">앞</div>
+  <div class="item back">뒤</div>
+</div>
